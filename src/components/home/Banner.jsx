@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const Banner = () => {
+  const navigate = useNavigate();
   return (
     <div className="banner flex flex-col gap-5 justify-center items-center rounded-3xl">
       <h1 className="text-5xl w-[800px] text-center">
@@ -10,7 +13,7 @@ const Banner = () => {
         the world of literature tailored to your interests and reading level.
       </p>
       <div className="flex gap-4 justify-center">
-        <button className="btn bg-[#0BE58A] text-black rounded-full border-none outline-none w-[176px]">
+        <button onClick={()=> navigate('/listed-books')} className="btn bg-[#0BE58A] text-black rounded-full border-none outline-none w-[176px]">
           View The List
         </button>
       </div>

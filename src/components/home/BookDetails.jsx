@@ -1,5 +1,5 @@
 import { useLoaderData, useParams } from "react-router-dom";
-import {setReadData,setWishlistData,removeFromWishlist, getReadData} from '../../utils/localStorage'
+import {setReadData,setWishlistData,removeFromWishlist, getReadData, getWishlistData} from '../../utils/localStorage'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from "react";
@@ -13,11 +13,16 @@ const BookDetails = () => {
     const [isWishlist, setIsWishlist] = useState(false);
 
     const handleRead = (bookId) => {
+        const readData = getReadData(); 
+        const doesExistRead = readData.find(data=> data === bookId);
+
+
         if(!isRead){
             removeFromWishlist(bookId);
             // setIsWishlist(!isWishlist);
             setReadData(bookId);  //send the bookId to local storage
-            toast.success('Book Read Successfully');
+            if(!doesExistRead) toast.success('Book Read Successfully');
+            else toast.error('Book Already Read');
             setIsRead(!isRead);
         }
         else toast.error('Book Already Read');
@@ -27,12 +32,15 @@ const BookDetails = () => {
     const handleWishlist = (bookId) => {
 
         const readData = getReadData(); 
+        const wishlistData = getWishlistData();
+        const doesExistWishlist = wishlistData.find(data=> data === bookId);
 
-        const doesExist = readData.find(data=> data === bookId);
-        if(!doesExist){
+        const doesExistRead = readData.find(data=> data === bookId);
+        if(!doesExistRead){
             if(!isRead && !isWishlist){
-            setWishlistData(bookId);   //send the bookId to local storage
-            toast.success('Book Wishlist Successfully');
+            setWishlistData(bookId);
+            if(!doesExistWishlist) toast.success('Book Wishlist Successfully');
+            else toast.error('Book Already Wishlist')
             setIsWishlist(!isWishlist);            
         }
         else if(isRead) toast.error('Book Already Read');
