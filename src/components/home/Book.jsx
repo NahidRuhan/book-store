@@ -4,22 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Book = ({book}) => {
 
     const navigate = useNavigate();
-
-    // const data = {
-    //     "bookId": 4,
-    //     "bookName": "The Three-Body Problem",
-    //     "author": "Liu Cixin",
-    //     "image": "https://i.ibb.co/7rXL4dS/three-body-problem.jpg",
-    //     "review": "Dive into the mind-bending world of 'The Three-Body Problem' by Liu Cixin. This groundbreaking science fiction novel explores themes of physics, philosophy, and the fate of humanity in the face of an impending alien invasion. A must-read for fans of hard science fiction.",
-    //     "totalPages": 400,
-    //     "rating": 4.5,
-    //     "category": "Science Fiction",
-    //     "tags": ["Aliens", "Physics", "Philosophy"],
-    //     "publisher": "Tor Books",
-    //     "yearOfPublishing": 2008
-    // }
     
-
     const { bookId, bookName, author, image, rating, category, tags} = book;
 
     return (

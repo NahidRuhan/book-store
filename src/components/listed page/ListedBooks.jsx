@@ -1,7 +1,22 @@
+import { useLoaderData } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import {getReadData,getWishlistData} from '../../utils/localStorage';
+import ListItem from './ListItem';
 
 const ListedBooks = () => {
+    const books = useLoaderData();
+    console.log(books);
+    const readId = getReadData();
+    console.log(readId);
+    const wishlistId = getWishlistData();
+    console.log(wishlistId);
+    
+    const readBooks = books.filter(book => readId.includes(book.bookId));
+    const wishlistBooks = books.filter(book => wishlistId.includes(book.bookId));
+    console.log(readBooks);
+    console.log(wishlistBooks);
+
     return (
         <div className="space-y-14">
 
@@ -22,31 +37,20 @@ const ListedBooks = () => {
 
             <Tabs>
       <TabList>
-        <Tab>Mario</Tab>
-        <Tab>Peach</Tab>
+        <Tab>Read</Tab>
+        <Tab>Wishlist</Tab>
       </TabList>
   
       <TabPanel>
-        <p>
-          <b>Mario</b> (<i>Japanese: マリオ Hepburn: Mario, [ma.ɾʲi.o]</i>) (<i>English:
-          /ˈmɑːrioʊ/; Italian: [ˈmaːrjo]</i>) is a fictional character in the Mario video
-          game franchise, owned by Nintendo and created by Japanese video game designer
-          Shigeru Miyamoto. Serving as the companys mascot and the eponymous protagonist
-          of the series, Mario has appeared in over 200 video games since his creation.
-          Depicted as a short, pudgy, Italian plumber who resides in the Mushroom
-          Kingdom, his adventures generally center upon rescuing Princess Peach from the
-          Koopa villain Bowser. His younger brother and sidekick is Luigi.
-        </p>
-      </TabPanel>
-      <TabPanel>
-        <p>
-          <b>Peach</b> (<i>Japanese: ルイージ Hepburn: Ruīji, [ɾɯ.iː.dʑi̥]</i>) (<i>English: /luˈiːdʒi/;
-          Italian: [luˈiːdʒi]</i>) is a fictional character featured in video games and related media
-          released by Nintendo. Created by prominent game designer Shigeru Miyamoto, Luigi is portrayed
-          as the slightly younger but taller fraternal twin brother of Nintendos mascot Mario, and
-          appears in many games throughout the Mario franchise, often as a sidekick to his brother.
-        </p>
-      </TabPanel>
+  {
+    readBooks.map(bookuntola => <ListItem key={bookuntola.bookId} bookuntola={bookuntola}></ListItem>)
+  }
+</TabPanel>
+<TabPanel>
+  {
+    wishlistBooks.map(bookuntola => <ListItem key={bookuntola.bookId} bookuntola={bookuntola}></ListItem>)
+  }
+</TabPanel>
     </Tabs>
                 
             </div>

@@ -1,5 +1,5 @@
 import { useLoaderData, useParams } from "react-router-dom";
-import {setReadData,setWishlistData,removeFromWishlist} from '../../utils/localStorage'
+import {setReadData,setWishlistData,removeFromWishlist, getReadData} from '../../utils/localStorage'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from "react";
@@ -26,14 +26,19 @@ const BookDetails = () => {
 
     const handleWishlist = (bookId) => {
 
-        if(!isRead && !isWishlist){
+        const readData = getReadData(); 
+
+        const doesExist = readData.find(data=> data === bookId);
+        if(!doesExist){
+            if(!isRead && !isWishlist){
             setWishlistData(bookId);   //send the bookId to local storage
             toast.success('Book Wishlist Successfully');
             setIsWishlist(!isWishlist);            
         }
         else if(isRead) toast.error('Book Already Read');
-        else toast.error('Book Already Wishlist');
-
+        else toast.error('Book Already Wishlist'); 
+        }
+        else toast.error('Book Already Read');
     }
 
     return (
