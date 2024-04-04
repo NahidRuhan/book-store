@@ -1,13 +1,40 @@
 import { useLoaderData, useParams } from "react-router-dom";
+import {setReadData,setWishlistData,removeFromWishlist} from '../../utils/localStorage'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useState } from "react";
 
 const BookDetails = () => {
     const books = useLoaderData();
     const id = useParams();
     const book = books.find(elem=> elem.bookId === parseInt(id.id))
+    const { bookId, bookName, author, image, review, totalPages, rating, category, tags, publisher, yearOfPublishing } = book;
+    const [isRead, setIsRead] = useState(false);
+    const [isWishlist, setIsWishlist] = useState(false);
 
-    console.log(book);
+    const handleRead = (bookId) => {
+        if(!isRead){
+            removeFromWishlist(bookId);
+            // setIsWishlist(!isWishlist);
+            setReadData(bookId);  //send the bookId to local storage
+            toast.success('Book Read Successfully');
+            setIsRead(!isRead);
+        }
+        else toast.error('Book Already Read');
 
-    const { bookName, author, image, review, totalPages, rating, category, tags, publisher, yearOfPublishing } = book;
+    }
+
+    const handleWishlist = (bookId) => {
+
+        if(!isRead && !isWishlist){
+            setWishlistData(bookId);   //send the bookId to local storage
+            toast.success('Book Wishlist Successfully');
+            setIsWishlist(!isWishlist);            
+        }
+        else if(isRead) toast.error('Book Already Read');
+        else toast.error('Book Already Wishlist');
+
+    }
 
     return (
         <div className="flex gap-10">
@@ -30,12 +57,13 @@ const BookDetails = () => {
                     <p><span className="w-52 inline-block">Rating :</span><span className="font-bold">{rating}⭐</span></p>                    
                 </div>
                 <div className="flex gap-10 py-5">
-                    <button className="btn btn-outline">Read</button>
-                    <button className="btn btn-info">Wishlist</button>
+                    <button onClick={()=>handleRead(bookId)} className="btn btn-outline">Read</button>
+                    <button onClick={()=>handleWishlist(bookId)} className="btn btn-info">Wishlist</button>
                 </div>
                 
 
             </div>
+            <ToastContainer />
         </div>
     );
 };
