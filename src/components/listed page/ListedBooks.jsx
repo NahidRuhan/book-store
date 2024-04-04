@@ -3,19 +3,21 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import {getReadData,getWishlistData} from '../../utils/localStorage';
 import ListItem from './ListItem';
+import { useEffect, useState } from 'react';
 
 const ListedBooks = () => {
     const books = useLoaderData();
-    console.log(books);
-    const readId = getReadData();
-    console.log(readId);
-    const wishlistId = getWishlistData();
-    console.log(wishlistId);
-    
-    const readBooks = books.filter(book => readId.includes(book.bookId));
-    const wishlistBooks = books.filter(book => wishlistId.includes(book.bookId));
-    console.log(readBooks);
-    console.log(wishlistBooks);
+    const [readBooks, setReadBooks] = useState([]);
+    const [wishlistBooks, setWishlistBooks] = useState([]);
+
+    useEffect(()=>{
+        const readId = getReadData();
+        const wishlistId = getWishlistData();  
+        const readBooks = books.filter(book => readId.includes(book.bookId));
+        const wishlistBooks = books.filter(book => wishlistId.includes(book.bookId));
+        setReadBooks(readBooks);
+        setWishlistBooks(wishlistBooks);      
+    },[books])
 
     return (
         <div className="space-y-14">
