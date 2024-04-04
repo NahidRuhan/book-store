@@ -48,20 +48,6 @@ const sortBooksByPage = (readBooks, wishlistBooks) => {
     setDisplayWishlistBooks(wishlistBooksSorted);
 };
 
-
-  const handleRating = () => {
-      sortBooksByRating(readBooks, wishlistBooks);
-  };
-    const handleYear = ()=> {
-
-      sortBooksByYear(readBooks, wishlistBooks);
-
-    }
-    const handlePage = ()=> {
-      sortBooksByPage(readBooks, wishlistBooks);
-
-    }
-
     return (
         <div className="space-y-14">
 
@@ -71,9 +57,9 @@ const sortBooksByPage = (readBooks, wishlistBooks) => {
             <div className="dropdown dropdown-bottom">
   <div tabIndex={0} role="button" className="btn m-1 bg-[#23BE0A]">Filter <span><IoIosArrowDown /></span></div>
   <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 text-left space-y-2 font-bold">
-    <li className='hover:cursor-pointer' onClick={handleRating}>Rating</li>
-    <li className='hover:cursor-pointer' onClick={handleYear}>Year</li>
-    <li className='hover:cursor-pointer' onClick={handlePage}>Number of Pages</li>
+    <li className='hover:cursor-pointer' onClick={()=>sortBooksByRating(readBooks, wishlistBooks)}>Rating</li>
+    <li className='hover:cursor-pointer' onClick={()=>sortBooksByYear(readBooks, wishlistBooks)}>Year</li>
+    <li className='hover:cursor-pointer' onClick={()=>sortBooksByPage(readBooks, wishlistBooks)}>Number of Pages</li>
   </ul>
 </div>
             </div>
