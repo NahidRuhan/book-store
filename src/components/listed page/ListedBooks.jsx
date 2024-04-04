@@ -4,11 +4,15 @@ import 'react-tabs/style/react-tabs.css';
 import {getReadData,getWishlistData} from '../../utils/localStorage';
 import ListItem from './ListItem';
 import { useEffect, useState } from 'react';
+import { IoIosArrowDown } from "react-icons/io";
+
 
 const ListedBooks = () => {
     const books = useLoaderData();
     const [readBooks, setReadBooks] = useState([]);
     const [wishlistBooks, setWishlistBooks] = useState([]);
+    console.log(readBooks)
+    console.log(wishlistBooks)
 
     useEffect(()=>{
         const readId = getReadData();
@@ -26,7 +30,7 @@ const ListedBooks = () => {
 
             <div className="text-center">
             <div className="dropdown dropdown-bottom">
-  <div tabIndex={0} role="button" className="btn m-1 bg-[#23BE0A]">Filter</div>
+  <div tabIndex={0} role="button" className="btn m-1 bg-[#23BE0A]">Filter <span><IoIosArrowDown /></span></div>
   <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 text-left space-y-2 font-bold">
     <li>Rating</li>
     <li>Year</li>
