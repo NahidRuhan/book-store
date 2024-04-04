@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.banner{
+    background-image: url('https://i.ibb.co/vxPYGmt/image.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    height: 400px;
+}
