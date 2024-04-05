@@ -61,7 +61,7 @@ const BookDetails = () => {
                 <p className="font-semibold text-xl">Category: {category}</p>
                 <div className="divider"></div>
                 <p><span className="font-bold">Review: </span>{review}</p>
-                <p><span>Tags: </span>{tags.map((tag,idx)=><div key={idx} className="badge badge-secondary mx-1"># {tag}</div>)}</p>
+                <p><span>Tags: </span>{tags.map((tag,idx)=><span key={idx} className="badge badge-secondary mx-1"># {tag}</span>)}</p>
                 <div className="divider"></div>
                 <div className="space-y-5">
                     <p><span className="w-52 inline-block">Number of Pages :</span><span className="font-bold">{totalPages} Pages</span></p>

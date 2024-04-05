@@ -27,16 +27,16 @@ const ListedBooks = () => {
 
     const handleRating = ()=> {
       const readBooksSorted = [...readBooks].sort((a, b) => b.rating - a.rating);
-      setDisplayReadBooks(readBooksSorted);
       const wishlistBooksSorted = [...wishlistBooks].sort((a, b) => b.rating - a.rating);
+      setDisplayReadBooks(readBooksSorted);
       setDisplayWishlistBooks(wishlistBooksSorted);
       setHuh(true);
     }
     const handleYear = ()=> {
 
       const readBooksSorted = [...readBooks].sort((a, b) => b.yearOfPublishing - a.yearOfPublishing);
-      setDisplayReadBooks(readBooksSorted);
       const wishlistBooksSorted = [...wishlistBooks].sort((a, b) => b.yearOfPublishing - a.yearOfPublishing);
+      setDisplayReadBooks(readBooksSorted);
       setDisplayWishlistBooks(wishlistBooksSorted);
       setHuh(true);
 
@@ -45,8 +45,8 @@ const ListedBooks = () => {
     }
     const handlePage = ()=> {
       const readBooksSorted = [...readBooks].sort((a, b) => b.totalPages - a.totalPages);
-      setDisplayReadBooks(readBooksSorted);
       const wishlistBooksSorted = [...wishlistBooks].sort((a, b) => b.totalPages - a.totalPages);
+      setDisplayReadBooks(readBooksSorted);
       setDisplayWishlistBooks(wishlistBooksSorted);
       setHuh(true);
 

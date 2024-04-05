@@ -22,7 +22,7 @@ const ListItem = ({bookuntola}) => {
                 <h1 className="font-bold text-2xl">{bookName}</h1>
                 <p>By: {author}</p>
                 <div className="flex gap-5">
-                <p><span className="font-bold">Tags: </span>{tags.map((tag,idx)=><div key={idx} className="badge badge-secondary mx-1"># {tag}</div>)}</p>
+                <p><span className="font-bold">Tags: </span>{tags.map((tag,idx)=><span key={idx} className="badge badge-secondary mx-1"># {tag}</span>)}</p>
                 <p className="flex items-center gap-2"><span><CiLocationOn /></span> Year of Publishing: {yearOfPublishing}</p>
                 </div>
                 <div className="flex gap-5">
