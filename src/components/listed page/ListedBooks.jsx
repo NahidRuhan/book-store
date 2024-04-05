@@ -6,7 +6,7 @@ import ListItem from './ListItem';
 import { useEffect, useState } from 'react';
 import { IoIosArrowDown } from "react-icons/io";
 
-//ChatGPT Method
+//Huh Method
 
 const ListedBooks = () => {
     const books = useLoaderData();
@@ -14,40 +14,43 @@ const ListedBooks = () => {
     const [wishlistBooks, setWishlistBooks] = useState([]);
     const [displayReadBooks, setDisplayReadBooks] = useState([]);
     const [displayWishlistBooks, setDisplayWishlistBooks] = useState([]);
+    const [huh,setHuh] = useState(false);
 
-    useEffect(() => {
-      const readId = getReadData();
-      const wishlistId = getWishlistData();
-      const readBooksFiltered = books.filter(book => readId.includes(book.bookId));
-      const wishlistBooksFiltered = books.filter(book => wishlistId.includes(book.bookId));
-      
-      setReadBooks(readBooksFiltered);
-      setWishlistBooks(wishlistBooksFiltered);
-      
-      // Sort books by rating by default
-      sortBooksByRating(readBooksFiltered, wishlistBooksFiltered);
-  }, [books]);
+    useEffect(()=>{
+        const readId = getReadData();
+        const wishlistId = getWishlistData();  
+        const readBooks = books.filter(book => readId.includes(book.bookId));
+        const wishlistBooks = books.filter(book => wishlistId.includes(book.bookId));
+        setReadBooks(readBooks);
+        setWishlistBooks(wishlistBooks);
+    },[books])
 
-  const sortBooksByRating = (readBooks, wishlistBooks) => {
-    const readBooksSorted = [...readBooks].sort((a, b) => b.rating - a.rating);
-    const wishlistBooksSorted = [...wishlistBooks].sort((a, b) => b.rating - a.rating);
-    setDisplayReadBooks(readBooksSorted);
-    setDisplayWishlistBooks(wishlistBooksSorted);
-};
+    const handleRating = ()=> {
+      const readBooksSorted = [...readBooks].sort((a, b) => b.rating - a.rating);
+      setDisplayReadBooks(readBooksSorted);
+      const wishlistBooksSorted = [...wishlistBooks].sort((a, b) => b.rating - a.rating);
+      setDisplayWishlistBooks(wishlistBooksSorted);
+      setHuh(true);
+    }
+    const handleYear = ()=> {
 
-const sortBooksByYear = (readBooks, wishlistBooks) => {
-    const readBooksSorted = [...readBooks].sort((a, b) => b.yearOfPublishing - a.yearOfPublishing);
-    const wishlistBooksSorted = [...wishlistBooks].sort((a, b) => b.yearOfPublishing - a.yearOfPublishing);
-    setDisplayReadBooks(readBooksSorted);
-    setDisplayWishlistBooks(wishlistBooksSorted);
-};
+      const readBooksSorted = [...readBooks].sort((a, b) => b.yearOfPublishing - a.yearOfPublishing);
+      setDisplayReadBooks(readBooksSorted);
+      const wishlistBooksSorted = [...wishlistBooks].sort((a, b) => b.yearOfPublishing - a.yearOfPublishing);
+      setDisplayWishlistBooks(wishlistBooksSorted);
+      setHuh(true);
 
-const sortBooksByPage = (readBooks, wishlistBooks) => {
-    const readBooksSorted = [...readBooks].sort((a, b) => b.totalPages - a.totalPages);
-    const wishlistBooksSorted = [...wishlistBooks].sort((a, b) => b.totalPages - a.totalPages);
-    setDisplayReadBooks(readBooksSorted);
-    setDisplayWishlistBooks(wishlistBooksSorted);
-};
+
+
+    }
+    const handlePage = ()=> {
+      const readBooksSorted = [...readBooks].sort((a, b) => b.totalPages - a.totalPages);
+      setDisplayReadBooks(readBooksSorted);
+      const wishlistBooksSorted = [...wishlistBooks].sort((a, b) => b.totalPages - a.totalPages);
+      setDisplayWishlistBooks(wishlistBooksSorted);
+      setHuh(true);
+
+    }
 
     return (
         <div className="space-y-14">
@@ -58,9 +61,9 @@ const sortBooksByPage = (readBooks, wishlistBooks) => {
             <div className="dropdown dropdown-bottom">
   <div tabIndex={0} role="button" className="btn m-1 bg-[#23BE0A]">Filter <span><IoIosArrowDown /></span></div>
   <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 text-left space-y-2 font-bold">
-    <li className='hover:cursor-pointer' onClick={()=>sortBooksByRating(readBooks, wishlistBooks)}>Rating</li>
-    <li className='hover:cursor-pointer' onClick={()=>sortBooksByYear(readBooks, wishlistBooks)}>Year</li>
-    <li className='hover:cursor-pointer' onClick={()=>sortBooksByPage(readBooks, wishlistBooks)}>Number of Pages</li>
+    <li className='hover:cursor-pointer' onClick={handleRating}>Rating</li>
+    <li className='hover:cursor-pointer' onClick={handleYear}>Year</li>
+    <li className='hover:cursor-pointer' onClick={handlePage}>Number of Pages</li>
   </ul>
 </div>
             </div>
@@ -75,12 +78,12 @@ const sortBooksByPage = (readBooks, wishlistBooks) => {
   
       <TabPanel>
   {
-    displayReadBooks.map(bookuntola => <ListItem key={bookuntola.bookId} bookuntola={bookuntola}></ListItem>)
+    (huh ? displayReadBooks : readBooks).map(bookuntola => <ListItem key={bookuntola.bookId} bookuntola={bookuntola}></ListItem>)
   }
 </TabPanel>
 <TabPanel>
   {
-    displayWishlistBooks.map(bookuntola => <ListItem key={bookuntola.bookId} bookuntola={bookuntola}></ListItem>)
+    (huh ? displayWishlistBooks : wishlistBooks).map(bookuntola => <ListItem key={bookuntola.bookId} bookuntola={bookuntola}></ListItem>)
   }
 </TabPanel>
     </Tabs>
